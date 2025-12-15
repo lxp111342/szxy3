@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>李孝平的个人博客</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+        }
+        
+        :root {
+            --primary-color: #4a7fa5;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #f8f9fa;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --light-bg: #fefefe;
+            --border-color: #e9ecef;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f8f9fa;
+            background-image: linear-gradient(to bottom, #f8f9fa, #f0f2f5);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        a:hover {
+            color: var(--accent-color);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--dark-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: var(--light-bg);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--dark-color);
+            font-weight: 600;
+            padding: 5px 0;
+            position: relative;
+            font-size: 1.1rem;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        nav ul li a.active {
+            color: var(--primary-color);
+        }
+        
+        nav ul li a.active:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            cursor: pointer;
+        }
+        
+        /* 主要内容区域 */
+        main {
+            flex: 1;
+            padding: 40px 0;
+        }
+        
+        /* 首页横幅 */
+        .hero {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--dark-color);
+            text-align: center;
+            padding: 100px 20px;
+            border-radius: 15px;
+            margin-bottom: 60px;
+            box-shadow: var(--shadow);
+        }
+        
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #555;
+        }
+        
+        .hero-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        /* 个人简介 */
+        .profile-section {
+            background-color: var(--light-bg);
+            padding: 60px 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 60px;
+        }
+        
+        .profile-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .profile-image {
+            flex: 0 0 300px;
+        }
+        
+        .profile-image img {
+            width: 100%;
+            height: 350px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 5px solid var(--light-bg);
+            box-shadow: var(--shadow);
+        }
+        
+        .profile-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .profile-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .profile-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+        
+        .detail-item i {
+            color: var(--primary-color);
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .hobbies {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .hobby {
+            display: flex;
+            align-items: center;
+            background-color: #e9f4ff;
+            padding: 10px 20px;
+            border-radius: 30px;
+        }
+        
+        .hobby i {
+            color: var(--accent-color);
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        /* 照片墙 */
+        .photo-gallery {
+            margin-bottom: 60px;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 300px;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* 爱好详情 */
+        .hobby-details {
+            background-color: var(--light-bg);
+            padding: 60px 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 60px;
+        }
+        
+        .hobby-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .hobby-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .hobby-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hobby-icon {
+            width: 70px;
+            height: 70px;
+            background-color: #e9f4ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .hobby-icon i {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+        
+        .hobby-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bbbbbb;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbbbbb;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .profile-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-image {
+                margin-bottom: 20px;
+            }
+            
+            .profile-details {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 15px 0;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--light-bg);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero {
+                padding: 60px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hobby-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-column {
+                flex: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .profile-image {
+                flex: 0 0 250px;
+            }
+            
+            .profile-image img {
+                height: 300px;
+            }
+            
+            .hobbies {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">李孝平<span>的个人博客</span></a>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <nav>
+                    <ul id="mainNav">
+                        <li><a href="#home" class="active">首页</a></li>
+                        <li><a href="#profile">个人简介</a></li>
+                        <li><a href="#gallery">照片墙</a></li>
+                        <li><a href="#hobbies">我的爱好</a></li>
+                        <li><a href="#contact">联系我</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main>
+        <div class="container">
+            <!-- 首页横幅 -->
+            <section class="hero" id="home">
+                <h1>你好，我是李孝平</h1>
+                <p class="hero-text">欢迎来到我的个人空间</p>
+                <p>这里记录了我的生活点滴、兴趣爱好和个人思考。希望通过这个博客，你能更了解我。</p>
+                <a href="#profile" class="btn">了解更多关于我</a>
+            </section>
+            
+            <!-- 个人简介 -->
+            <section id="profile">
+                <h2 class="section-title">个人简介</h2>
+                <div class="profile-section">
+                    <div class="profile-content">
+                        <div class="profile-image">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="李孝平">
+                        </div>
+                        <div class="profile-text">
+                            <h3>李孝平 (Li Xiaoping)</h3>
+                            <p>我是一个热爱生活、积极向上的年轻人。喜欢尝试新鲜事物，对生活充满热情。我相信每一天都是一个新的开始，每一天都值得被认真对待。</p>
+                            
+                            <div class="profile-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-user"></i>
+                                    <span><strong>性别：</strong> 男</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-ruler-vertical"></i>
+                                    <span><strong>身高：</strong> 170cm</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span><strong>城市：</strong> 贵州</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span><strong>学号：</strong> 23170404002</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span><strong>专业：</strong> 大数据</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span><strong>班级：</strong> 四班</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-birthday-cake"></i>
+                                    <span><strong>年龄：</strong>22岁</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-graduation-cap"></i>
+                                    <span><strong>职业：</strong>大三学生</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-heart"></i>
+                                    <span><strong>状态：</strong> 单身</span>
+                                </div>
+                            </div>
+                            
+                            <p>我目前在一家科技公司担任前端工程师，热爱编程和设计。工作之余，我喜欢打篮球和唱歌，这些爱好让我保持了良好的身心状态，也结识了许多志同道合的朋友。</p>
+                            
+                            <div class="hobbies">
+                                <div class="hobby">
+                                    <i class="fas fa-basketball-ball"></i>
+                                    <span>打篮球</span>
+                                </div>
+                                <div class="hobby">
+                                    <i class="fas fa-music"></i>
+                                    <span>唱歌</span>
+                                </div>
+                                <div class="hobby">
+                                    <i class="fas fa-code"></i>
+                                    <span>编程</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 照片墙 -->
+            <section id="gallery">
+                <h2 class="section-title">我的偶像墙 - 彭于晏</h2>
+                <div class="photo-gallery">
+                    <div class="gallery-grid">
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="彭于晏照片1">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="彭于晏照片2">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="彭于晏照片3">
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 爱好详情 -->
+            <section id="hobbies">
+                <h2 class="section-title">我的爱好</h2>
+                <div class="hobby-details">
+                    <div class="hobby-grid">
+                        <!-- 篮球爱好 -->
+                        <div class="hobby-card">
+                            <div class="hobby-icon">
+                                <i class="fas fa-basketball-ball"></i>
+                            </div>
+                            <h3>打篮球</h3>
+                            <p>我从高中开始接触篮球，至今已有10年球龄。篮球对我来说不仅是运动，更是一种生活方式。我享受在球场上挥洒汗水的感觉，喜欢与队友配合完成精彩进攻。每周我都会打2-3次篮球，这让我保持了良好的身体状态和精神面貌。</p>
+                            <p>我最喜欢的NBA球员是科比·布莱恩特，喜欢他永不言弃的曼巴精神。在篮球场上，我通常打控球后卫的位置，擅长组织进攻和三分投射。</p>
+                        </div>
+                        
+                        <!-- 唱歌爱好 -->
+                        <div class="hobby-card">
+                            <div class="hobby-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <h3>唱歌</h3>
+                            <p>唱歌是我释放压力、表达情感的最佳方式。无论是流行歌曲还是经典老歌，我都乐于尝试。在KTV里，我是朋友中的"麦霸"，尤其擅长演唱周杰伦和陈奕迅的歌曲。</p>
+                            <p>我参加过公司的歌唱比赛，并获得了第二名的好成绩。音乐让我的生活更加丰富多彩，也让我结识了许多同样热爱音乐的朋友。周末的时候，我经常和朋友一起去KTV唱歌，或者在家里用唱吧APP录制歌曲。</p>
+                        </div>
+                        
+                        <!-- 编程爱好 -->
+                        <div class="hobby-card">
+                            <div class="hobby-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3>编程开发</h3>
+                            <p>作为一名前端工程师，编程不仅是我的职业，也是我的热情所在。我喜欢用代码创造美观、实用的网页和应用。在工作中，我主要使用HTML、CSS、JavaScript和React框架。</p>
+                            <p>业余时间，我喜欢研究新的前端技术，也尝试开发一些个人项目。最近我正在学习Vue.js和Node.js，希望能成为一名全栈开发者。编程让我有机会将自己的想法变成现实，这种创造的过程让我非常有成就感。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>李孝平的个人博客</h3>
+                    <p>记录生活点滴，分享兴趣爱好，展示真实自我。这里是我的数字家园，欢迎你来了解我。</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="far fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>快速导航</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#profile">个人简介</a></li>
+                        <li><a href="#gallery">照片墙</a></li>
+                        <li><a href="#hobbies">我的爱好</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>兴趣爱好</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">篮球比赛</a></li>
+                        <li><a href="#">音乐分享</a></li>
+                        <li><a href="#">编程技术</a></li>
+                        <li><a href="#">旅行见闻</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>联系我</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> lixiaoping@example.com</li>
+                        <li><i class="fas fa-phone"></i> 138-XXXX-XXXX</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 上海市浦东新区</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 李孝平的个人博客. 保留所有权利. 主题设计: 浅白色系</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mainNav').classList.toggle('active');
+        });
+        
+        // 导航链接点击事件
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // 移除所有active类
+                document.querySelectorAll('nav a').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // 为当前点击的链接添加active类
+                this.classList.add('active');
+                
+                // 如果是移动端，点击后隐藏菜单
+                if (window.innerWidth <= 768) {
+                    document.getElementById('mainNav').classList.remove('active');
+                }
+                
+                // 平滑滚动到目标位置
+                const targetId = this.getAttribute('href');
+                if(targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // 照片墙图片点击事件
+        document.querySelectorAll('.gallery-item').forEach((item, index) => {
+            item.addEventListener('click', function() {
+                alert('这是彭于晏的照片 ' + (index + 1) + '，李孝平的偶像！');
+            });
+        });
+        
+        // 页面加载时显示欢迎信息
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                console.log("欢迎来到李孝平的个人博客！");
+            }, 500);
+        });
+    </script>
+</body>
+</html>
